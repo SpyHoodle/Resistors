@@ -55,16 +55,19 @@ def calc_resistor(colours, bands):
     tolerance = 0
 
     for i, colour in enumerate(colours):
-        # Get the band
+        # Get the band value from
         if i < 3:
             bands_value += str(bands[colour]["band"])
 
+        # Get the multiplier
         elif i == 3:
             multiplier = bands[colour]["multiplier"]
 
+        # Get the tolerance
         elif i == 4:
             tolerance = bands[colour]["tolerance"]
 
+    # Calculate the resistor value
     resistor_value = int(bands_value) * multiplier
     return resistor_value, tolerance
 
