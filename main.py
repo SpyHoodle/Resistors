@@ -1,4 +1,4 @@
-import json
+from json import load as json_load
 import colours as c
 
 
@@ -6,7 +6,7 @@ def load_json(file_name):
     # Open a json file called file_name
     with open(file_name) as file:
         # Load the json file into a dictionary
-        return json.load(file)
+        return json_load(file)
 
 
 def convert(value):
@@ -29,8 +29,8 @@ def input_colours(bands):
     colours = []
     while len(colours) < 5:
         # Calculate a suffix for the number i.e. 2nd or 3rd
-        suffixes = ["", "st", "nd", "rd", "th", "th"]
-        suffix = suffixes[len(colours) + 1]
+        suffixes = ["st", "nd", "rd", "th", "th"]
+        suffix = suffixes[len(colours)]
 
         # Ask the user to input the colour of the resistor band
         colour = input(f"{c.cyan}What is the colour of the "
@@ -40,6 +40,10 @@ def input_colours(bands):
         if colour in bands:
             # Only add the colour if it is valid
             colours.append(colour)
+
+        elif colour == "exit":
+            print(f"{c.red}Exiting..{c.end}")
+            exit()
 
         else:
             # Otherwise, print an error message
@@ -55,15 +59,15 @@ def calc_resistor(colours, bands):
     tolerance = 0
 
     for i, colour in enumerate(colours):
-        # Get the band value from
+        # Get the band digit for the first 3 colours
         if i < 3:
             bands_value += str(bands[colour]["band"])
 
-        # Get the multiplier
+        # Get the multiplier for the 4rd colour
         elif i == 3:
             multiplier = bands[colour]["multiplier"]
 
-        # Get the tolerance
+        # Get the tolerance for the 5th colour
         elif i == 4:
             tolerance = bands[colour]["tolerance"]
 
@@ -74,7 +78,7 @@ def calc_resistor(colours, bands):
 
 def main(file_name):
     # Print the welcome message
-    print(f"{c.magenta}Resistor Calculator v0.1.0{c.end}")
+    print(f"{c.magenta}Resistor Calculator{c.end}")
 
     # Load the band information from the json file
     bands = load_json(file_name)
