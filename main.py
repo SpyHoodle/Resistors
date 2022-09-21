@@ -63,7 +63,7 @@ def calc_resistor(colours, bands):
         if i < 3:
             bands_value += str(bands[colour]["band"])
 
-        # Get the multiplier for the 4rd colour
+        # Get the multiplier for the 4th colour
         elif i == 3:
             multiplier = bands[colour]["multiplier"]
 
