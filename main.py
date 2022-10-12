@@ -2,14 +2,14 @@ from json import load as json_load
 import colours as c
 
 
-def load_json(file_name):
+def load_json(file_name: str) -> dict:
     # Open a json file called file_name
     with open(file_name) as file:
         # Load the json file into a dictionary
         return json_load(file)
 
 
-def convert(value):
+def convert(value: int):
     if 1000 <= value < 1000000:
         # Kilo
         value = str(value / 1000) + " K"
@@ -25,7 +25,7 @@ def convert(value):
     return value
 
 
-def input_colours(bands):
+def input_colours(bands: dict) -> list:
     colours = []
     while len(colours) < 5:
         # Calculate a suffix for the number i.e. 2nd or 3rd
@@ -52,7 +52,7 @@ def input_colours(bands):
     return colours
 
 
-def calc_resistor(colours, bands):
+def calc_resistor(colours: list, bands: dict) -> (float | int, float | int):
     # Set default values
     bands_value = ""
     multiplier = 1
@@ -76,7 +76,7 @@ def calc_resistor(colours, bands):
     return resistor_value, tolerance
 
 
-def main(file_name):
+def main(file_name: str):
     # Print the welcome message
     print(f"{c.magenta}Resistor Calculator{c.end}")
 
